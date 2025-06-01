@@ -1,0 +1,42 @@
+Table passengers {
+  PassengerId int [pk]
+  Name varchar
+  Sex varchar
+  Age float
+  Pclass int
+  Ticket varchar
+  Fare float
+  Cabin varchar
+  EmbarkedCode varchar
+}
+
+Table family {
+  PassengerId int [pk, ref: > passengers.PassengerId]
+  SibSp int
+  Parch int
+  FamilySize int
+}
+
+Table survival {
+  PassengerId int [pk, ref: > passengers.PassengerId]
+  Survived int
+  Survival_Score int
+}
+
+Table age_group {
+  AgeGroupId int [pk]
+  GroupLabel varchar
+  MinAge float
+  MaxAge float
+}
+
+Table passenger_age_group {
+  PassengerId int [pk, ref: > passengers.PassengerId]
+  AgeGroupId int [ref: > age_group.AgeGroupId]
+}
+
+Table embarkation {
+  EmbarkedCode varchar [pk]
+  EmbarkedPort varchar
+  Region varchar
+}
