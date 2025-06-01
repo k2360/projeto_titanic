@@ -1,0 +1,42 @@
+Table passengers {
+  PassengerId int [pk]
+  Name varchar
+  Sex varchar
+  Age float
+  Pclass int
+  Ticket varchar
+  Fare float
+  Cabin varchar
+  EmbarkedCode varchar
+}
+
+Table family {
+  PassengerId int [pk, ref: > passengers.PassengerId]
+  SibSp int        // Irmãos/Cônjuges
+  Parch int        // Pais/Filhos
+  FamilySize int   // Calculado: SibSp + Parch + 1
+}
+
+Table survival {
+  PassengerId int [pk, ref: > passengers.PassengerId]
+  Survived int         // 0 = Não, 1 = Sim
+  Survival_Score int   // Score baseado em regras definidas
+}
+
+Table age_group {
+  AgeGroupId int [pk]
+  GroupLabel varchar     // Criança, Adolescente, Adulto, Idoso
+  MinAge float
+  MaxAge float
+}
+
+Table passenger_age_group {
+  PassengerId int [pk, ref: > passengers.PassengerId]
+  AgeGroupId int [ref: > age_group.AgeGroupId]
+}
+
+Table embarkation {
+  EmbarkedCode varchar [pk] // C, Q, S
+  EmbarkedPort varchar      // Cherbourg, Queenstown, Southampton
+  Region varchar            // Região (se desejar expandir)
+}
